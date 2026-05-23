@@ -1,0 +1,2902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CredenceSoft BookOne | Enterprise Hospitality Sales Pitch</title>
+    <meta name="description" content="Strategic hospitality technology sales presentation demonstrating operational transformation through BookOne ecosystem">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f1419;
+            --secondary: #d4af37;
+            --accent: #1a2a4a;
+            --light: #f5f1ed;
+            --text: #1a1a1a;
+            --text-light: #666;
+            --border: #e8dcc8;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'DM Serif Display', serif;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); }
+        h2 { font-size: clamp(2rem, 6vw, 4rem); }
+        h3 { font-size: clamp(1.3rem, 4vw, 2rem); }
+
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 5vw, 3rem);
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .loading-logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary), #c4a030);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.8rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .loading-text {
+            color: var(--light);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        nav .logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            letter-spacing: 2px;
+        }
+
+        nav .nav-scroll {
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            height: 3px;
+            background: var(--secondary);
+            animation: expand 3s ease-in-out infinite;
+        }
+
+        @keyframes expand {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a2e4a 100%);
+            color: var(--light);
+            min-height: 120vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(26, 42, 74, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            margin-top: 80px;
+        }
+
+        .hero-subtitle {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            color: var(--light);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            animation: slideInUp 1.2s ease-out;
+        }
+
+        .hero-desc {
+            font-size: 1.4rem;
+            color: rgba(245, 241, 237, 0.8);
+            margin-bottom: 3rem;
+            animation: slideInUp 1.4s ease-out;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .metric-card {
+            background: rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            animation: slideInUp 1.6s ease-out;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: rgba(245, 241, 237, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Common */
+        .section-dark {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .section-light {
+            background: var(--light);
+            color: var(--text);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Chaos Section */
+        .chaos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .chaos-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chaos-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--danger), transparent);
+        }
+
+        .chaos-icon {
+            font-size: 2.5rem;
+            color: var(--danger);
+            margin-bottom: 1rem;
+        }
+
+        .chaos-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-family: 'DM Serif Display', serif;
+        }
+
+        .chaos-desc {
+            font-size: 0.95rem;
+            color: rgba(245, 241, 237, 0.7);
+            line-height: 1.5;
+        }
+
+        /* Pain Points Section */
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pain-point {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pain-point:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .pain-point-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary), #c4a030);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pain-point h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .pain-point p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .pain-point .learn-more {
+            color: var(--secondary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: var(--light);
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideInUp 0.3s ease;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--secondary);
+        }
+
+        .modal h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .modal-section p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .impact-metric {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .impact-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        /* Real Cost Section */
+        .cost-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .cost-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .cost-value {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--danger);
+            margin-bottom: 0.5rem;
+        }
+
+        .cost-label {
+            color: rgba(245, 241, 237, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .dashboard-preview {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 2rem 0;
+        }
+
+        /* Ecosystem Section */
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+            border-radius: 16px;
+            padding: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .product-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary), #c4a030);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .product-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Simulation Section */
+        .simulation-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            position: relative;
+        }
+
+        .workflow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .workflow-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            position: relative;
+        }
+
+        .workflow-step::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -30px;
+            width: 30px;
+            height: 2px;
+            background: rgba(212, 175, 55, 0.3);
+        }
+
+        .workflow-step:last-child::after {
+            display: none;
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step.active .step-icon {
+            background: linear-gradient(135deg, var(--secondary), #c4a030);
+            border-color: var(--secondary);
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .step-label {
+            color: rgba(245, 241, 237, 0.8);
+            font-weight: 600;
+        }
+
+        .simulation-dashboard {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dashboard-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dashboard-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .dashboard-item.active {
+            background: rgba(46, 204, 113, 0.1);
+            border-color: var(--success);
+        }
+
+        .dashboard-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .dashboard-label {
+            font-size: 0.85rem;
+            color: rgba(245, 241, 237, 0.7);
+        }
+
+        .dashboard-item.active .dashboard-value {
+            color: var(--success);
+        }
+
+        .simulation-button {
+            background: var(--secondary);
+            color: var(--primary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .simulation-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Before/After Toggle */
+        .toggle-container {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .toggle {
+            display: inline-flex;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            padding: 0.4rem;
+            gap: 0;
+        }
+
+        .toggle-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            background: transparent;
+            color: rgba(245, 241, 237, 0.7);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+
+        .toggle-btn.active {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .comparison-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .comparison-card.negative {
+            opacity: 0.6;
+        }
+
+        .comparison-card.positive {
+            opacity: 1;
+        }
+
+        .comparison-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-card.negative .comparison-icon {
+            color: var(--danger);
+        }
+
+        .comparison-card.positive .comparison-icon {
+            color: var(--success);
+        }
+
+        /* GM Mode Section */
+        .gm-scenario {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .gm-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .gm-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--light);
+        }
+
+        .alert-badge {
+            background: var(--danger);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .gm-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .gm-stat {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--secondary);
+        }
+
+        .gm-stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .gm-stat-label {
+            font-size: 0.85rem;
+            color: rgba(245, 241, 237, 0.7);
+        }
+
+        .gm-action {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gm-action:hover {
+            background: rgba(212, 175, 55, 0.3);
+            border-color: var(--secondary);
+        }
+
+        .gm-action-title {
+            font-weight: 600;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .gm-action-desc {
+            font-size: 0.9rem;
+            color: rgba(245, 241, 237, 0.7);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateX(-1px);
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: 52%;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: 52%;
+            text-align: right;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            background: var(--secondary);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            top: 8px;
+            transform: translateX(-50%);
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        /* Client Segmentation */
+        .client-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .client-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .client-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .client-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary), #c4a030);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .client-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .client-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        /* 90 Day Plan */
+        .phases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .phase {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .phase-number {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .phase h3 {
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .phase-items {
+            text-align: left;
+            color: rgba(245, 241, 237, 0.8);
+        }
+
+        .phase-items li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .phase-items li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* Closing Section */
+        .closing {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a2e4a 100%);
+            color: var(--light);
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .closing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(26, 42, 74, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .closing-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .closing h2 {
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .closing-subtext {
+            font-size: 1.3rem;
+            color: rgba(245, 241, 237, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .closing-divider {
+            width: 100px;
+            height: 3px;
+            background: var(--secondary);
+            margin: 3rem auto;
+        }
+
+        .closing-signature {
+            margin-top: 3rem;
+            font-family: 'DM Serif Display', serif;
+        }
+
+        .signature-title {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .signature-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), #c4a030);
+            z-index: 999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                height: 60px;
+            }
+
+            .hero-content {
+                margin-top: 60px;
+            }
+
+            .section {
+                min-height: auto;
+                padding: 2rem 0;
+            }
+
+            .workflow {
+                flex-direction: column;
+            }
+
+            .workflow-step::after {
+                display: none;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 2rem;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 0;
+            }
+
+            .hero-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                padding: 2rem;
+            }
+        }
+
+        /* Utility */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--secondary), #c4a030);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">B1</div>
+        <div class="loading-text">CREDENCESOFT</div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">BookOne</div>
+        <div class="nav-scroll"></div>
+    </nav>
+
+    <!-- SECTION 1: HERO -->
+    <section class="section hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-subtitle">Strategic Hospitality Technology Pitch</div>
+            <h1>Hotels are not losing bookings.<br>They are losing control.</h1>
+            <p class="hero-desc">A comprehensive operational transformation strategy for luxury hospitality technology.</p>
+            
+            <div class="hero-metrics">
+                <div class="metric-card">
+                    <div class="metric-value">23%</div>
+                    <div class="metric-label">OTA Commission Cost</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">4.2hrs</div>
+                    <div class="metric-label">Daily Staff System Switching</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">18min</div>
+                    <div class="metric-label">Peak Hour Check-in Time</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">32%</div>
+                    <div class="metric-label">Lost Direct Booking Revenue</div>
+                </div>
+            </div>
+
+            <div class="hero-cta">
+                <button class="btn btn-primary" onclick="scrollToSection('chaos')">See Operational Chaos</button>
+                <button class="btn btn-secondary" onclick="scrollToSection('ecosystem')">Experience Transformation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: HOTEL CHAOS -->
+    <section class="section section-dark" id="chaos" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Silent Crisis</h2>
+                <p>How disconnected systems create operational breakdown, lost revenue, and guest frustration</p>
+            </div>
+
+            <div class="chaos-grid">
+                <div class="chaos-card">
+                    <div class="chaos-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="chaos-title">OTA Dependency</div>
+                    <div class="chaos-desc">Booking.com and Expedia control 60% of bookings, extracting 23% commission while hotel invests 0% in direct channels</div>
+                </div>
+                <div class="chaos-card">
+                    <div class="chaos-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="chaos-title">Manual Updates</div>
+                    <div class="chaos-desc">Housekeeping, front desk, and POS operate independently—inventory syncing happens manually every 6 hours</div>
+                </div>
+                <div class="chaos-card">
+                    <div class="chaos-icon"><i class="fas fa-users"></i></div>
+                    <div class="chaos-title">Front Desk Overload</div>
+                    <div class="chaos-desc">Check-ins take 15-20 minutes because staff don't have real-time occupancy, payment, or housekeeping status</div>
+                </div>
+                <div class="chaos-card">
+                    <div class="chaos-icon"><i class="fas fa-sync"></i></div>
+                    <div class="chaos-title">Inventory Mismatch</div>
+                    <div class="chaos-desc">Room availability between PMS and Booking.com diverges, creating overbookings and guest disappointments</div>
+                </div>
+                <div class="chaos-card">
+                    <div class="chaos-icon"><i class="fas fa-credit-card"></i></div>
+                    <div class="chaos-title">Payment Chaos</div>
+                    <div class="chaos-desc">Multiple payment processors, delayed settlement, and reconciliation errors take 3-4 hours monthly</div>
+                </div>
+                <div class="chaos-card">
+                    <div class="chaos-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="chaos-title">Lost Visibility</div>
+                    <div class="chaos-desc">Managers lack real-time operational dashboard, making decisions on hunches instead of data</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: PAIN POINTS -->
+    <section class="section section-light" id="pain-points" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Operational Pain Points</h2>
+                <p>Click any card to understand the business impact and operational solution</p>
+            </div>
+
+            <div class="pain-grid">
+                <div class="pain-point" onclick="openModal('modal-ota')">
+                    <div class="pain-point-icon"><i class="fas fa-globe"></i></div>
+                    <h3>OTA Dependency</h3>
+                    <p>When 60% of bookings flow through OTAs charging 23% commission, where is your profit margin?</p>
+                    <div class="learn-more">Learn more <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="pain-point" onclick="openModal('modal-inventory')">
+                    <div class="pain-point-icon"><i class="fas fa-boxes"></i></div>
+                    <h3>Inventory Mismatch</h3>
+                    <p>Rooms sold twice, guests turned away, overbooking disasters—all because systems don't talk.</p>
+                    <div class="learn-more">Learn more <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="pain-point" onclick="openModal('modal-checkin')">
+                    <div class="pain-point-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Delayed Check-ins</h3>
+                    <p>18-minute average check-in during peak hours creates queues, frustrated guests, and lost revenue.</p>
+                    <div class="learn-more">Learn more <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="pain-point" onclick="openModal('modal-payment')">
+                    <div class="pain-point-icon"><i class="fas fa-credit-card"></i></div>
+                    <h3>Payment Chaos</h3>
+                    <p>Incomplete payment reconciliation, delayed settlements, and commission disputes waste operational hours.</p>
+                    <div class="learn-more">Learn more <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="pain-point" onclick="openModal('modal-disconnect')">
+                    <div class="pain-point-icon"><i class="fas fa-plug"></i></div>
+                    <h3>System Disconnection</h3>
+                    <p>Staff switch between 5+ systems daily, creating errors, data loss, and operational friction.</p>
+                    <div class="learn-more">Learn more <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="pain-point" onclick="openModal('modal-visibility')">
+                    <div class="pain-point-icon"><i class="fas fa-binoculars"></i></div>
+                    <h3>Zero Visibility</h3>
+                    <p>Managers fly blind without real-time operational data, making reactive decisions instead of strategic ones.</p>
+                    <div class="learn-more">Learn more <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: REAL COST -->
+    <section class="section section-dark" id="real-cost" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Real Cost</h2>
+                <p>Monthly revenue loss from operational inefficiency at a 60-room hotel</p>
+            </div>
+
+            <div class="cost-grid">
+                <div class="cost-card">
+                    <div class="cost-value" id="cost-ota">₹3,42,000</div>
+                    <div class="cost-label">OTA Commission</div>
+                </div>
+                <div class="cost-card">
+                    <div class="cost-value" id="cost-direct">₹1,85,000</div>
+                    <div class="cost-label">Lost Direct Bookings</div>
+                </div>
+                <div class="cost-card">
+                    <div class="cost-value" id="cost-labor">₹68,000</div>
+                    <div class="cost-label">Manual Operations Labor</div>
+                </div>
+                <div class="cost-card">
+                    <div class="cost-value" id="cost-overbooking">₹42,000</div>
+                    <div class="cost-label">Overbooking Penalties</div>
+                </div>
+            </div>
+
+            <div class="dashboard-preview">
+                <h3 style="color: var(--light); margin-bottom: 2rem;">Monthly Operating Dashboard</h3>
+                <div class="chart-container">
+                    <canvas id="costChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: BOOKONE ECOSYSTEM -->
+    <section class="section section-light" id="ecosystem" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>BookOne Ecosystem</h2>
+                <p>One integrated platform. Complete hotel control.</p>
+            </div>
+
+            <div class="ecosystem-grid">
+                <div class="product-card" onclick="openModal('modal-pms')">
+                    <div class="product-icon"><i class="fas fa-server"></i></div>
+                    <h3>Property Management System</h3>
+                    <p>Centralized control of reservations, guest profiles, room status, and operational workflows.</p>
+                    <div class="learn-more">View demo <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="product-card" onclick="openModal('modal-pos')">
+                    <div class="product-icon"><i class="fas fa-cash-register"></i></div>
+                    <h3>Point of Sale</h3>
+                    <p>Seamlessly integrated billing, revenue tracking, and restaurant/bar operations linked to guest profiles.</p>
+                    <div class="learn-more">View demo <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="product-card" onclick="openModal('modal-channel')">
+                    <div class="product-icon"><i class="fas fa-broadcast-tower"></i></div>
+                    <h3>Channel Manager</h3>
+                    <p>One-second inventory sync across Booking.com, Expedia, Airbnb, and your direct website.</p>
+                    <div class="learn-more">View demo <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="product-card" onclick="openModal('modal-booking')">
+                    <div class="product-icon"><i class="fas fa-calendar-check"></i></div>
+                    <h3>Booking Engine</h3>
+                    <p>Branded direct booking engine capturing revenue, avoiding OTA commissions, and building guest loyalty.</p>
+                    <div class="learn-more">View demo <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="product-card" onclick="openModal('modal-payment')">
+                    <div class="product-icon"><i class="fas fa-wallet"></i></div>
+                    <h3>Payment Gateway</h3>
+                    <p>Unified payment processing, instant settlements, and reconciliation across all booking channels.</p>
+                    <div class="learn-more">View demo <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="product-card" onclick="openModal('modal-hotelmate')">
+                    <div class="product-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>HotelMate App</h3>
+                    <p>Guest-facing app with digital check-in, room control, service requests, and direct communication.</p>
+                    <div class="learn-more">View demo <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: LIVE SIMULATION -->
+    <section class="section section-dark" id="simulation" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Operational Transformation</h2>
+                <p>Watch how BookOne synchronizes your entire hotel operation in real-time</p>
+            </div>
+
+            <div class="simulation-container">
+                <div class="workflow">
+                    <div class="workflow-step active" id="step-1">
+                        <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+                        <div class="step-label">Guest Books Online</div>
+                    </div>
+                    <div class="workflow-step" id="step-2">
+                        <div class="step-icon"><i class="fas fa-sync"></i></div>
+                        <div class="step-label">OTA Syncs</div>
+                    </div>
+                    <div class="workflow-step" id="step-3">
+                        <div class="step-icon"><i class="fas fa-server"></i></div>
+                        <div class="step-label">PMS Updates</div>
+                    </div>
+                    <div class="workflow-step" id="step-4">
+                        <div class="step-icon"><i class="fas fa-bell"></i></div>
+                        <div class="step-label">Staff Notified</div>
+                    </div>
+                    <div class="workflow-step" id="step-5">
+                        <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="step-label">Ready to Check-in</div>
+                    </div>
+                </div>
+
+                <div class="simulation-dashboard">
+                    <div class="dashboard-row">
+                        <div class="dashboard-item" id="dash-booking">
+                            <div class="dashboard-value">342</div>
+                            <div class="dashboard-label">Total Bookings</div>
+                        </div>
+                        <div class="dashboard-item" id="dash-occupancy">
+                            <div class="dashboard-value">87%</div>
+                            <div class="dashboard-label">Occupancy</div>
+                        </div>
+                        <div class="dashboard-item" id="dash-revenue">
+                            <div class="dashboard-value">₹18.4L</div>
+                            <div class="dashboard-label">Daily Revenue</div>
+                        </div>
+                        <div class="dashboard-item" id="dash-direct">
+                            <div class="dashboard-value">42%</div>
+                            <div class="dashboard-label">Direct Bookings</div>
+                        </div>
+                    </div>
+                    <div class="dashboard-row">
+                        <div class="dashboard-item" id="dash-checkin">
+                            <div class="dashboard-value">2.3min</div>
+                            <div class="dashboard-label">Avg Check-in</div>
+                        </div>
+                        <div class="dashboard-item" id="dash-payment">
+                            <div class="dashboard-value">100%</div>
+                            <div class="dashboard-label">Auto Sync</div>
+                        </div>
+                        <div class="dashboard-item" id="dash-housekeeping">
+                            <div class="dashboard-value">12min</div>
+                            <div class="dashboard-label">Room Turnover</div>
+                        </div>
+                        <div class="dashboard-item" id="dash-satisfaction">
+                            <div class="dashboard-value">4.8★</div>
+                            <div class="dashboard-label">Guest Score</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="simulation-button" onclick="runSimulation()">Run Live Simulation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: BEFORE/AFTER -->
+    <section class="section section-light" id="comparison" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Operational Transformation</h2>
+                <p>From chaos to control</p>
+            </div>
+
+            <div class="toggle-container">
+                <div class="toggle">
+                    <button class="toggle-btn active" onclick="toggleComparison('before')">Before BookOne</button>
+                    <button class="toggle-btn" onclick="toggleComparison('after')">After BookOne</button>
+                </div>
+            </div>
+
+            <div class="comparison-grid" id="comparisonGrid">
+                <div class="comparison-card negative">
+                    <div class="comparison-icon"><i class="fas fa-hourglass-end"></i></div>
+                    <h3>18-min Check-in</h3>
+                    <p>Manual data entry, no real-time status</p>
+                </div>
+                <div class="comparison-card negative">
+                    <div class="comparison-icon"><i class="fas fa-exclamation-circle"></i></div>
+                    <h3>Frequent Overbookings</h3>
+                    <p>Inventory out of sync every 6 hours</p>
+                </div>
+                <div class="comparison-card negative">
+                    <div class="comparison-icon"><i class="fas fa-ban"></i></div>
+                    <h3>60% OTA Dependent</h3>
+                    <p>23% commission, zero brand control</p>
+                </div>
+                <div class="comparison-card negative">
+                    <div class="comparison-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Manual Reports</h3>
+                    <p>3-4 hours daily on data reconciliation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: GM MODE -->
+    <section class="section section-dark" id="gm-mode" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hotel GM Experience</h2>
+                <p>What real-time operational control feels like</p>
+            </div>
+
+            <div class="gm-scenario">
+                <div class="gm-header">
+                    <div class="gm-title">Friday 8:00 PM - Peak Hour Operations</div>
+                    <div class="alert-badge"><i class="fas fa-bell"></i> 3 Active Alerts</div>
+                </div>
+
+                <div class="gm-content">
+                    <div class="gm-stat">
+                        <div class="gm-stat-value">7</div>
+                        <div class="gm-stat-label">Check-ins in Progress</div>
+                    </div>
+                    <div class="gm-stat">
+                        <div class="gm-stat-value">3</div>
+                        <div class="gm-stat-label">Rooms Being Cleaned</div>
+                    </div>
+                    <div class="gm-stat">
+                        <div class="gm-stat-value">12</div>
+                        <div class="gm-stat-label">Service Requests Open</div>
+                    </div>
+                    <div class="gm-stat">
+                        <div class="gm-stat-value">₹4.2L</div>
+                        <div class="gm-stat-label">Today's Revenue</div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <div class="gm-action" onclick="handleGMAction('resolve-alert')">
+                        <div class="gm-action-title"><i class="fas fa-check-circle"></i> Resolve Alert</div>
+                        <div class="gm-action-desc">2 guests waiting for late checkout approval - approve in 3 seconds</div>
+                    </div>
+                    <div class="gm-action" onclick="handleGMAction('view-occupancy')">
+                        <div class="gm-action-title"><i class="fas fa-door-open"></i> View Occupancy</div>
+                        <div class="gm-action-desc">See real-time room status, occupancy flow, and next 3 days forecast</div>
+                    </div>
+                    <div class="gm-action" onclick="handleGMAction('revenue-tracking')">
+                        <div class="gm-action-title"><i class="fas fa-money-bill"></i> Track Revenue</div>
+                        <div class="gm-action-desc">Direct vs OTA breakdown, commission impact, and profitability analysis</div>
+                    </div>
+                    <div class="gm-action" onclick="handleGMAction('staff-coordination')">
+                        <div class="gm-action-title"><i class="fas fa-users"></i> Staff Coordination</div>
+                        <div class="gm-action-desc">See housekeeping queue, front desk performance, and task assignments</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 9: CASE STUDY -->
+    <section class="section section-light" id="case-study" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hotel Transformation Story</h2>
+                <p>How a 60-room boutique hotel in Hyderabad transformed operations in 90 days</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Before Implementation</h3>
+                        <p><strong>The Problem:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>62% bookings from Booking.com at 23% commission</li>
+                            <li>Manual inventory updates every 6 hours</li>
+                            <li>18-minute average check-in time</li>
+                            <li>3 different systems for billing</li>
+                            <li>Direct website: 2 bookings/month</li>
+                            <li>Staff spent 4+ hours daily on manual data entry</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Days 1-30: Foundation</h3>
+                        <p><strong>What Happened:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>BookOne PMS + Channel Manager deployment</li>
+                            <li>All OTAs synced in real-time</li>
+                            <li>Staff training on new workflows</li>
+                            <li>Direct booking engine launched</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Days 31-60: Optimization</h3>
+                        <p><strong>Results Started:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Check-in time reduced to 4.2 minutes</li>
+                            <li>Direct bookings: 28/month (14x growth)</li>
+                            <li>Zero overbooking incidents</li>
+                            <li>2 hours/day freed up from manual work</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Days 61-90: Scale</h3>
+                        <p><strong>Final Transformation:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Direct bookings: 42% of total revenue</li>
+                            <li>OTA commission reduced from ₹3.4L to ₹2.1L/month</li>
+                            <li>Net revenue increase: ₹2.8L/month</li>
+                            <li>Guest satisfaction: 3.2★ → 4.8★</li>
+                            <li>Staff efficiency improvement: 68%</li>
+                            <li>Management gained real-time visibility</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--secondary); margin-bottom: 0.5rem;">Annual Impact</h3>
+                        <p><strong>Year 1 Results:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>✓ Revenue increase: ₹33.6L annually</li>
+                            <li>✓ Commission savings: ₹15.6L annually</li>
+                            <li>✓ Operational efficiency gains: ₹8.4L annually</li>
+                            <li>✓ Total value creation: ₹57.6L in Year 1</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 10: MY APPROACH TO SELLING THIS -->
+    <section class="section section-dark" id="my-approach" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Sales Strategy</h2>
+                <p>How I would approach different hotel segments</p>
+            </div>
+
+            <div class="client-grid">
+                <div class="client-card" onclick="openModal('modal-boutique')">
+                    <div class="client-icon"><i class="fas fa-gem"></i></div>
+                    <h3>Boutique Hotels</h3>
+                    <p>Focus on brand control, direct revenue growth, and operational elegance.</p>
+                    <div class="learn-more">View strategy <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="client-card" onclick="openModal('modal-resort')">
+                    <div class="client-icon"><i class="fas fa-spa"></i></div>
+                    <h3>Luxury Resorts</h3>
+                    <p>Emphasis on guest experience, F&B integration, and premium operational control.</p>
+                    <div class="learn-more">View strategy <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="client-card" onclick="openModal('modal-business')">
+                    <div class="client-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>Business Hotels</h3>
+                    <p>ROI focus, corporate booking optimization, and operational efficiency metrics.</p>
+                    <div class="learn-more">View strategy <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="client-card" onclick="openModal('modal-restaurant')">
+                    <div class="client-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>F&B + Hospitality</h3>
+                    <p>Revenue capture across restaurant, bar, and room service through unified billing.</p>
+                    <div class="learn-more">View strategy <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 11: WHY I FIT CREDENCESOFT -->
+    <section class="section section-light" id="why-fit" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why I'm Built for This Role</h2>
+                <p>Unique background combining hospitality operations, sales strategy, and business development</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+                <div style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 2rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;"><i class="fas fa-building" style="color: var(--secondary);"></i></div>
+                    <h3 style="margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">Hospitality Operations Expertise</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        Deep understanding of hotel workflows: reservations, operations, guest journey, staff coordination. Not selling blindly—I understand what I'm selling and why it matters operationally.
+                    </p>
+                </div>
+
+                <div style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 2rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;"><i class="fas fa-chart-line" style="color: var(--secondary);"></i></div>
+                    <h3 style="margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">Revenue Impact Thinking</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        Every pitch is grounded in revenue math: OTA commission impact, direct booking growth, operational efficiency gains. I sell outcomes, not features.
+                    </p>
+                </div>
+
+                <div style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 2rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;"><i class="fas fa-handshake" style="color: var(--secondary);"></i></div>
+                    <h3 style="margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">Enterprise Relationship Skills</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        From luxury hospitality experience: ability to build relationships with decision-makers, understand executive concerns, navigate complex buying processes.
+                    </p>
+                </div>
+
+                <div style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 2rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;"><i class="fas fa-lightbulb" style="color: var(--secondary);"></i></div>
+                    <h3 style="margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">Consultative Selling Mindset</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        I diagnose problems first, recommend solutions second. Clients trust someone who understands their business better than they understand themselves.
+                    </p>
+                </div>
+
+                <div style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 2rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;"><i class="fas fa-globe" style="color: var(--secondary);"></i></div>
+                    <h3 style="margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">Global SaaS Knowledge</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        Understanding of B2B SaaS sales cycles, product positioning, competitive landscape, and how to position BookOne as the operational standard for hospitality.
+                    </p>
+                </div>
+
+                <div style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 2rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;"><i class="fas fa-target" style="color: var(--secondary);"></i></div>
+                    <h3 style="margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">Execution Discipline</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        This pitch proves it: I can take a vision and execute it to completion. Not just idea generation—follow-through on commitments and deliverables.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Support Partnership CTA -->
+            <div style="background: linear-gradient(135deg, var(--primary) 0%, #1a2e4a 100%); border-radius: 16px; padding: 3rem; text-align: center; color: var(--light);">
+                <h3 style="color: var(--light); margin-bottom: 1.5rem; font-family: 'DM Serif Display', serif;">Understanding CredenceSoft's Commitment</h3>
+                <p style="font-size: 1.1rem; color: rgba(245, 241, 237, 0.9); margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+                    It's not enough to sell great software. You need to stand behind it with extraordinary support, reliable technicians, and a commitment that hotel managers never feel alone.
+                </p>
+                <button class="btn btn-primary" onclick="scrollToSection('support-partnership')" style="margin-top: 1rem;">Explore CredenceSoft Support Partnership</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 11.5: CREDENCESOFT SUPPORT PARTNERSHIP -->
+    <section class="section section-light" id="support-partnership" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>You're Never Alone</h2>
+                <p>CredenceSoft's commitment to your operational success through 24/7 dedicated support and partnership</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+                <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(46, 204, 113, 0.05)); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 16px; padding: 2.5rem; text-align: center; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(212, 175, 55, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--secondary);"><i class="fas fa-phone-alt"></i></div>
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">24/7 Priority Support</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        Your dedicated support line is always open. Hotel issues don't follow business hours—neither does our team.
+                    </p>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.2);">
+                        <div style="color: var(--secondary); font-weight: 600; font-size: 0.9rem;">RESPONSE TIME</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-top: 0.5rem;">< 15 mins</div>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(46, 204, 113, 0.05)); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 16px; padding: 2.5rem; text-align: center; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(212, 175, 55, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--secondary);"><i class="fas fa-tools"></i></div>
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">Expert Technicians</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        Certified technicians with hospitality software expertise. Not generic IT support—people who understand your operations.
+                    </p>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.2);">
+                        <div style="color: var(--secondary); font-weight: 600; font-size: 0.9rem;">EXPERTISE</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-top: 0.5rem;">100+ Hotels</div>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(46, 204, 113, 0.05)); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 16px; padding: 2.5rem; text-align: center; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(212, 175, 55, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--secondary);"><i class="fas fa-wifi"></i></div>
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">Remote Problem Solving</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        80% of issues resolved instantly via secure remote access. No waiting for technicians to travel. Problems fixed in real-time.
+                    </p>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.2);">
+                        <div style="color: var(--secondary); font-weight: 600; font-size: 0.9rem;">RESOLUTION RATE</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-top: 0.5rem;">80% Remote</div>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(46, 204, 113, 0.05)); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 16px; padding: 2.5rem; text-align: center; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(212, 175, 55, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--secondary);"><i class="fas fa-history"></i></div>
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">Proactive Maintenance</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        System health checks, updates, and optimization happen automatically. Problems are prevented before they affect your hotel.
+                    </p>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.2);">
+                        <div style="color: var(--secondary); font-weight: 600; font-size: 0.9rem;">UPTIME</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-top: 0.5rem;">99.9%</div>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(46, 204, 113, 0.05)); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 16px; padding: 2.5rem; text-align: center; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(212, 175, 55, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--secondary);"><i class="fas fa-graduation-cap"></i></div>
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">Staff Training</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        Comprehensive onboarding and ongoing training for your team. We ensure your staff maximizes every BookOne feature.
+                    </p>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.2);">
+                        <div style="color: var(--secondary); font-weight: 600; font-size: 0.9rem;">ADOPTION</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-top: 0.5rem;">95% ROI</div>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(46, 204, 113, 0.05)); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 16px; padding: 2.5rem; text-align: center; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(212, 175, 55, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--secondary);"><i class="fas fa-envelope"></i></div>
+                    <h3 style="color: var(--primary); margin-bottom: 1rem; font-family: 'DM Serif Display', serif;">No Waiting Emails</h3>
+                    <p style="color: var(--text-light); line-height: 1.8;">
+                        Forget the email support roulette. Direct phone line, instant chat, video calls with experts. Real people, real solutions.
+                    </p>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.2);">
+                        <div style="color: var(--secondary); font-weight: 600; font-size: 0.9rem;">SATISFACTION</div>
+                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-top: 0.5rem;">4.9/5 Stars</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Response Simulation -->
+            <div style="background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 16px; padding: 3rem; margin-bottom: 3rem;">
+                <h3 style="color: var(--primary); text-align: center; margin-bottom: 2.5rem; font-family: 'DM Serif Display', serif;">Real Support Response Timeline</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                    <div style="text-align: center;">
+                        <div style="background: var(--secondary); color: var(--primary); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem; font-weight: 700;">1</div>
+                        <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">Issue Reported</div>
+                        <div style="color: var(--text-light); font-size: 0.9rem;">You call or message us</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: var(--secondary); color: var(--primary); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem; font-weight: 700;">2</div>
+                        <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">< 15 Minutes</div>
+                        <div style="color: var(--text-light); font-size: 0.9rem;">Specialist picks up your call</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: var(--secondary); color: var(--primary); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem; font-weight: 700;">3</div>
+                        <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">Remote Access</div>
+                        <div style="color: var(--text-light); font-size: 0.9rem;">They log in securely to diagnose</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: var(--secondary); color: var(--primary); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem; font-weight: 700;">4</div>
+                        <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">< 1 Hour</div>
+                        <div style="color: var(--text-light); font-size: 0.9rem;">80% of issues are resolved instantly</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Scenarios -->
+            <div style="background: linear-gradient(135deg, var(--primary) 0%, #1a2e4a 100%); border-radius: 16px; padding: 3rem; color: var(--light);">
+                <h3 style="margin-bottom: 2rem; text-align: center; font-family: 'DM Serif Display', serif;">Real Scenarios, Real Support</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 2rem;">
+                        <div style="color: var(--secondary); font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;">Scenario: Booking.com Sync Failed</div>
+                        <p style="color: rgba(245, 241, 237, 0.8); margin-bottom: 1.5rem; line-height: 1.8;">
+                            Your Booking.com inventory goes out of sync at 2 PM on a Saturday. Overbooking risk.
+                        </p>
+                        <div style="background: rgba(46, 204, 113, 0.15); border-left: 3px solid var(--success); padding: 1.5rem; border-radius: 8px;">
+                            <div style="font-weight: 600; color: var(--success); margin-bottom: 0.5rem;">CredenceSoft Response</div>
+                            <p style="color: rgba(245, 241, 237, 0.9); font-size: 0.95rem;">
+                                ✓ Specialist remotely identifies API issue<br>
+                                ✓ Fixed in 8 minutes via remote access<br>
+                                ✓ Inventory synced, zero guest impact<br>
+                                ✓ Root cause analysis sent next day
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 2rem;">
+                        <div style="color: var(--secondary); font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;">Scenario: POS Server Down</div>
+                        <p style="color: rgba(245, 241, 237, 0.8); margin-bottom: 1.5rem; line-height: 1.8;">
+                            Your restaurant server crashes during dinner service. Unable to process orders.
+                        </p>
+                        <div style="background: rgba(46, 204, 113, 0.15); border-left: 3px solid var(--success); padding: 1.5rem; border-radius: 8px;">
+                            <div style="font-weight: 600; color: var(--success); margin-bottom: 0.5rem;">CredenceSoft Response</div>
+                            <p style="color: rgba(245, 241, 237, 0.9); font-size: 0.95rem;">
+                                ✓ Automatic failover activated<br>
+                                ✓ Backup system online in 3 minutes<br>
+                                ✓ Restaurant continues operations<br>
+                                ✓ Proactive monitoring prevents future issues
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 2rem;">
+                        <div style="color: var(--secondary); font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;">Scenario: Staff Training Needed</div>
+                        <p style="color: rgba(245, 241, 237, 0.8); margin-bottom: 1.5rem; line-height: 1.8;">
+                            New front desk manager doesn't understand advanced check-in features.
+                        </p>
+                        <div style="background: rgba(46, 204, 113, 0.15); border-left: 3px solid var(--success); padding: 1.5rem; border-radius: 8px;">
+                            <div style="font-weight: 600; color: var(--success); margin-bottom: 0.5rem;">CredenceSoft Response</div>
+                            <p style="color: rgba(245, 241, 237, 0.9); font-size: 0.95rem;">
+                                ✓ Video call with our training expert<br>
+                                ✓ Live walkthrough of features<br>
+                                ✓ Recorded session for future reference<br>
+                                ✓ Follow-up check-in after 1 week
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 12: 90 DAY PLAN -->
+    <section class="section section-dark" id="90-day" style="padding: 6rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>90-Day Execution Plan</h2>
+                <p>My strategy for immediate impact and sustainable growth</p>
+            </div>
+
+            <div class="phases">
+                <div class="phase">
+                    <div class="phase-number">1</div>
+                    <h3>FOUNDATION (Days 1-30)</h3>
+                    <ul class="phase-items">
+                        <li>Market research: identify 20 high-potential boutique hotels</li>
+                        <li>Competitor analysis: positioning vs. Hotelogix, Cloudbeds, Opera</li>
+                        <li>Sales collateral: case studies, ROI calculators, demo videos</li>
+                        <li>Inbound strategy: LinkedIn B2B outreach to hotel GMs</li>
+                        <li>Sales training: deep product mastery, objection handling</li>
+                    </ul>
+                </div>
+
+                <div class="phase">
+                    <div class="phase-number">2</div>
+                    <h3>PROSPECTING (Days 31-60)</h3>
+                    <ul class="phase-items">
+                        <li>Launch outbound: personalized pitches to identified hotels</li>
+                        <li>Build pipeline: 15 qualified conversations</li>
+                        <li>Discovery calls: diagnostic approach to understand real pain</li>
+                        <li>Demo strategy: tailored to each hotel's pain points</li>
+                        <li>Relationship building: regular follow-up, value-add content</li>
+                    </ul>
+                </div>
+
+                <div class="phase">
+                    <div class="phase-number">3</div>
+                    <h3>CONVERSION (Days 61-90)</h3>
+                    <ul class="phase-items">
+                        <li>Close 2-3 deals: initial bookings and implementation</li>
+                        <li>Build case studies: create video testimonials</li>
+                        <li>Develop referral strategy: leverage early wins</li>
+                        <li>Create feedback loop: learnings for product improvements</li>
+                        <li>Establish pipeline for Q2: 30+ qualified leads</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 2.5rem; margin-top: 3rem;">
+                <h3 style="color: var(--light); margin-bottom: 2rem;">Key Performance Indicators</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--secondary); margin-bottom: 0.5rem;">40</div>
+                        <div style="color: rgba(245, 241, 237, 0.8);">Qualified Conversations</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--secondary); margin-bottom: 0.5rem;">2-3</div>
+                        <div style="color: rgba(245, 241, 237, 0.8);">Closed Deals</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--secondary); margin-bottom: 0.5rem;">15</div>
+                        <div style="color: rgba(245, 241, 237, 0.8);">Case Studies Created</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--secondary); margin-bottom: 0.5rem;">₹45L+</div>
+                        <div style="color: rgba(245, 241, 237, 0.8);">Pipeline Value Generated</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 13: CLOSING -->
+    <section class="section closing" id="closing">
+        <div class="closing-content">
+            <h2>Hotels don't need more software.</h2>
+            <p class="closing-subtext">
+                They need operational control.<br>
+                They need revenue visibility.<br>
+                They need to compete with OTAs.<br>
+                They need to own their customer relationships.
+            </p>
+
+            <div class="closing-divider"></div>
+
+            <p style="font-size: 1.1rem; color: rgba(245, 241, 237, 0.9); margin-bottom: 1.5rem; line-height: 1.8;">
+                With the right strategy, BookOne becomes more than a PMS.<br>
+                It becomes the operating system of the hotel.
+            </p>
+
+            <div class="closing-signature">
+                <div class="signature-name">Sumanth Thipparthi</div>
+                <div class="signature-title">Business Development Manager Candidate</div>
+                <div style="color: rgba(245, 241, 237, 0.6); font-size: 0.95rem; margin-top: 1rem;">CredenceSoft Strategic Interview Presentation</div>
+            </div>
+
+            <button class="btn btn-primary" onclick="scrollToSection('hero')" style="margin-top: 3rem;">Back to Top</button>
+        </div>
+    </section>
+
+    <!-- MODALS -->
+    <div class="modal-overlay" id="modal-ota">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-ota')">✕</button>
+            <h2>OTA Dependency Crisis</h2>
+            <div class="modal-section">
+                <h3>The Problem</h3>
+                <p>At a typical 60-room hotel, 62% of bookings flow through Booking.com and Expedia, which charge 23% commission. This creates structural dependence on platforms that control pricing and availability.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Business Impact</h3>
+                <div class="impact-metric">
+                    <div class="impact-value">₹3.4L</div>
+                    <div>Monthly OTA commission lost to these platforms</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-value">0%</div>
+                    <div>Guest data owned by the hotel (all with OTAs)</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-value">2</div>
+                    <div>Direct bookings/month (negligible)</div>
+                </div>
+            </div>
+            <div class="modal-section">
+                <h3>BookOne Solution</h3>
+                <p>Our Booking Engine and Channel Manager enable hotels to:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>Launch branded direct booking channels</li>
+                    <li>Sync inventory instantly across OTAs</li>
+                    <li>Capture guest data for repeat bookings</li>
+                    <li>Avoid margin compression from OTA battles</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Expected Outcome</h3>
+                <p><strong>Year 1:</strong> Direct bookings grow from 2 to 40+ per month, reducing OTA dependence to 45%. Commission savings: ₹15.6L annually. Revenue increase: ₹33.6L annually.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-inventory">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-inventory')">✕</button>
+            <h2>Inventory Mismatch</h2>
+            <div class="modal-section">
+                <h3>The Problem</h3>
+                <p>Manual inventory updates every 6 hours create gaps between what's available on your PMS and what's showing on Booking.com, Airbnb, and your website.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Real Consequences</h3>
+                <p>A guest books on Booking.com for a specific room type. Front desk hasn't synced yet—room is already sold on your direct website. Guest arrives. Room unavailable. Complaint. Refund. Bad review.</p>
+            </div>
+            <div class="modal-section">
+                <h3>BookOne Solution</h3>
+                <p>One-second synchronization across all channels. When a room is booked anywhere, it's instantly unavailable everywhere. Zero overbookings. Zero confusion.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-checkin">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-checkin')">✕</button>
+            <h2>Delayed Check-ins</h2>
+            <div class="modal-section">
+                <h3>The Problem</h3>
+                <p>18-minute average check-in during peak hours because front desk staff must manually:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>Verify payment status across 3 systems</li>
+                    <li>Check housekeeping readiness (via phone/radio)</li>
+                    <li>Manually enter guest details in 2+ systems</li>
+                    <li>Process payment (if not pre-captured)</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Guest Experience Impact</h3>
+                <p>After traveling for 6+ hours, your guest waits 18 minutes in line. They're already in a bad mood. First impression of hotel is chaos.</p>
+            </div>
+            <div class="modal-section">
+                <h3>BookOne Solution</h3>
+                <p>Integrated PMS + HotelMate app enables:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>Digital check-in via app (room key sent to phone)</li>
+                    <li>Payment pre-captured at booking</li>
+                    <li>Automatic housekeeping coordination</li>
+                    <li>Welcome message + room instructions</li>
+                </ul>
+                <p style="margin-top: 1rem;">Result: <strong>2.3-minute check-in</strong>. Guest feels valued. Premium experience.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-payment">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-payment')">✕</button>
+            <h2>Payment Reconciliation Chaos</h2>
+            <div class="modal-section">
+                <h3>The Problem</h3>
+                <p>Hotels use 3-5 different payment processors (Razorpay, Juspay, etc.). Reconciliation happens manually, taking 3-4 hours daily and causing revenue leakage.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Real Cost</h3>
+                <div class="impact-metric">
+                    <div class="impact-value">₹68K</div>
+                    <div>Monthly staff time on reconciliation</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-value">2-3 days</div>
+                    <div>Delay in settlements from booking date</div>
+                </div>
+            </div>
+            <div class="modal-section">
+                <h3>BookOne Payment Gateway Solution</h3>
+                <p>Unified payment processing and automatic reconciliation:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>One payment gateway (no system switching)</li>
+                    <li>Instant settlement to bank account</li>
+                    <li>Automatic OTA commission deduction</li>
+                    <li>Complete audit trail in PMS</li>
+                    <li>Real-time revenue visibility</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-disconnect">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-disconnect')">✕</button>
+            <h2>System Disconnection</h2>
+            <div class="modal-section">
+                <h3>The Problem</h3>
+                <p>Hotel staff switch between PMS, Booking.com, OTA management tool, WhatsApp, POS, and email—sometimes 5-7 systems per day.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Operational Impact</h3>
+                <div class="impact-metric">
+                    <div class="impact-value">4.2 hours</div>
+                    <div>Daily time lost to system switching</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-value">23%</div>
+                    <div>Increase in human errors from context switching</div>
+                </div>
+            </div>
+            <div class="modal-section">
+                <h3>BookOne Integration Solution</h3>
+                <p>One ecosystem, one interface:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>PMS + POS + Channel Manager + Payment Gateway in one platform</li>
+                    <li>Single staff login (no credential juggling)</li>
+                    <li>Unified guest records</li>
+                    <li>Real-time data flow between modules</li>
+                    <li>Mobile-first design for staff efficiency</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-visibility">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-visibility')">✕</button>
+            <h2>Zero Visibility</h2>
+            <div class="modal-section">
+                <h3>The Problem</h3>
+                <p>Hotel managers lack real-time dashboards. They make decisions based on hunches instead of data:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>"Which OTA brings the most revenue?"</li>
+                    <li>"What's our actual occupancy forecast?"</li>
+                    <li>"Are we over-relying on any channel?"</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>BookOne Dashboard Solution</h3>
+                <p>Real-time operational visibility:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>Live occupancy by room type</li>
+                    <li>Revenue by channel (Direct vs OTA breakdown)</li>
+                    <li>Guest satisfaction scores</li>
+                    <li>Staff performance metrics</li>
+                    <li>F&B revenue tracking</li>
+                    <li>Forecasting and trend analysis</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-pms">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-pms')">✕</button>
+            <h2>BookOne PMS</h2>
+            <div class="modal-section">
+                <h3>Core Capability</h3>
+                <p>Centralized reservation management, guest profiles, room status tracking, and operational workflows in one dashboard.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Key Features</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Real-time reservations from all channels</li>
+                    <li>Guest profile management with history</li>
+                    <li>Room status automation (ready, occupied, maintenance)</li>
+                    <li>Task assignment for housekeeping</li>
+                    <li>Billing and revenue tracking</li>
+                    <li>Mobile app for staff on-the-go</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Operational Benefit</h3>
+                <p>From scattered information, your entire hotel's operational status is visible in real-time. Front desk, housekeeping, management all see the same data.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-pos">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-pos')">✕</button>
+            <h2>BookOne POS</h2>
+            <div class="modal-section">
+                <h3>Core Capability</h3>
+                <p>Seamlessly integrated billing for restaurant, bar, room service, and ancillary revenue—all linked to guest profiles and room folio.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Key Features</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Multi-outlet billing (restaurant, bar, room service)</li>
+                    <li>Automatic charge to room folio</li>
+                    <li>Guest recognition and loyalty tracking</li>
+                    <li>Real-time revenue reporting by category</li>
+                    <li>Kitchen management integration</li>
+                    <li>Payment processing integration</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Revenue Benefit</h3>
+                <p>Capture 100% of ancillary revenue. Every restaurant transaction is tied to a guest room, enabling upselling and personalization.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-channel">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-channel')">✕</button>
+            <h2>Channel Manager</h2>
+            <div class="modal-section">
+                <h3>Core Capability</h3>
+                <p>One-second inventory synchronization across Booking.com, Expedia, Airbnb, Agoda, and your direct website.</p>
+            </div>
+            <div class="modal-section">
+                <h3>How It Works</h3>
+                <p>Update your inventory once in BookOne PMS. Instantly reflects on:</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Booking.com</li>
+                    <li>Expedia</li>
+                    <li>Airbnb</li>
+                    <li>Agoda</li>
+                    <li>Your direct website</li>
+                </ul>
+                <p style="margin-top: 1rem;">No manual updates. No 6-hour delays. No overbookings.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Operational Benefit</h3>
+                <p>Your hotel is always in sync. When a room sells on any channel, it's instantly unavailable everywhere. This alone prevents ₹42K monthly in overbooking penalties.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-booking">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-booking')">✕</button>
+            <h2>Booking Engine</h2>
+            <div class="modal-section">
+                <h3>Core Capability</h3>
+                <p>Branded, white-label booking engine that customers see on your website. Captures bookings, avoids OTA commissions, builds guest data ownership.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Key Features</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Custom branding to match your website</li>
+                    <li>Real-time room availability</li>
+                    <li>Promotional offers and upsells</li>
+                    <li>Seamless payment integration</li>
+                    <li>Automated confirmation + pre-arrival emails</li>
+                    <li>Direct guest communication channel</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Revenue Impact</h3>
+                <p>At 40% direct booking penetration:</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Commission savings: ₹15.6L annually</li>
+                    <li>Guest loyalty: direct bookers stay longer, spend more</li>
+                    <li>Margin improvement: zero middleman</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-hotelmate">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-hotelmate')">✕</button>
+            <h2>HotelMate Guest App</h2>
+            <div class="modal-section">
+                <h3>Core Capability</h3>
+                <p>Mobile app for guests enabling digital check-in, room control, service requests, and direct communication with hotel staff.</p>
+            </div>
+            <div class="modal-section">
+                <h3>Key Features</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Digital check-in (room key sent to phone)</li>
+                    <li>Room control (lighting, AC, TV)</li>
+                    <li>Service request submission</li>
+                    <li>Direct messaging with staff</li>
+                    <li>Folio and billing view</li>
+                    <li>Hotel amenities and local recommendations</li>
+                    <li>Feedback and rating submission</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Guest Experience Impact</h3>
+                <p>Reduces check-in friction, empowers guests with control, and provides direct communication channel. Result: higher guest satisfaction (3.2★ → 4.8★).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-boutique">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-boutique')">✕</button>
+            <h2>Boutique Hotel Sales Strategy</h2>
+            <div class="modal-section">
+                <h3>Discovery Questions</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li>"What percentage of your bookings come from OTAs vs direct? How much commission are you paying monthly?"</li>
+                    <li>"How long does your average guest check-in take? What's blocking it?"</li>
+                    <li>"How many systems does your front desk staff use daily?"</li>
+                    <li>"What's your biggest guest complaint?"</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Value Proposition</h3>
+                <p>Position as "Brand Control Platform":</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Own your customer relationships</li>
+                    <li>Reduce OTA dependence</li>
+                    <li>Create personalized guest journeys</li>
+                    <li>Streamline operations to match luxury standards</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>ROI Focus</h3>
+                <p>For a 30-room boutique hotel: ₹24L annual revenue impact (commission savings + direct booking growth + operational efficiency).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-resort">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-resort')">✕</button>
+            <h2>Luxury Resort Sales Strategy</h2>
+            <div class="modal-section">
+                <h3>Discovery Questions</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li>"How integrated are your F&B, spa, activities, and accommodation revenue? Any lost upsell opportunities?"</li>
+                    <li>"What's your guest communication strategy during their stay?"</li>
+                    <li>"How do you track guest satisfaction across all touchpoints?"</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Value Proposition</h3>
+                <p>Position as "Premium Guest Experience Platform":</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Unified F&B + accommodation + activities revenue</li>
+                    <li>Personalized guest journey at every touch</li>
+                    <li>Real-time operational coordination across departments</li>
+                    <li>Direct guest communication via HotelMate</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>ROI Focus</h3>
+                <p>For a 100-room luxury resort: ₹65L+ annual impact through ancillary revenue capture and guest satisfaction improvement.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-business">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-business')">✕</button>
+            <h2>Business Hotel Sales Strategy</h2>
+            <div class="modal-section">
+                <h3>Discovery Questions</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li>"What percentage of your bookings are corporate? What's your corporate retention rate?"</li>
+                    <li>"How do you handle bulk bookings and contracts?"</li>
+                    <li>"What's your average length of stay? Any issues with turnover?"</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Value Proposition</h3>
+                <p>Position as "Efficiency & Scale Platform":</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Fast, frictionless check-in at scale</li>
+                    <li>Corporate billing and invoicing</li>
+                    <li>Quick room turnover (housekeeping coordination)</li>
+                    <li>Direct corporate relationship management</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>ROI Focus</h3>
+                <p>Cost reduction + revenue growth: 35-40% operational efficiency improvement at scale.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-restaurant">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-restaurant')">✕</button>
+            <h2>F&B + Hospitality Strategy</h2>
+            <div class="modal-section">
+                <h3>Discovery Questions</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li>"What's your current revenue breakdown: rooms vs F&B? Are they optimized together or separate?"</li>
+                    <li>"How do you upsell F&B to room guests?"</li>
+                    <li>"Any manual processes bridging POS and room billing?"</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Value Proposition</h3>
+                <p>Position as "Unified Revenue Platform":</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>One guest profile across room + F&B + activities</li>
+                    <li>Automatic room folio charging from POS</li>
+                    <li>Personalized upselling based on stay patterns</li>
+                    <li>Unified reporting on total guest value</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>ROI Focus</h3>
+                <p>For a hotel with strong F&B: ₹45L+ annual impact through upsell optimization and operational integration.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUPPORT PARTNERSHIP MODAL -->
+    <div class="modal-overlay" id="modal-support">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-support')">✕</button>
+            <h2>CredenceSoft Support Partnership</h2>
+            <div class="modal-section">
+                <h3>Why Hotel Managers Choose CredenceSoft</h3>
+                <p>It's not just about software. It's about partnership. When your operations depend on technology, you need a team that stands with you 24/7.</p>
+            </div>
+            <div class="modal-section">
+                <h3>What "Never Alone" Means</h3>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li><strong>24/7 Priority Support:</strong> Your dedicated support line, not a helpdesk queue</li>
+                    <li><strong>< 15 Minute Response:</strong> Real specialists pick up, not automated systems</li>
+                    <li><strong>80% Remote Resolution:</strong> Problems fixed instantly via secure remote access</li>
+                    <li><strong>Expert Technicians:</strong> Hospitality-focused, not generic IT support</li>
+                    <li><strong>Proactive Maintenance:</strong> Issues prevented before they impact your hotel</li>
+                    <li><strong>Staff Training:</strong> Your team maximizes every feature for ROI</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Real Commitment Metrics</h3>
+                <div class="impact-metric">
+                    <div class="impact-value">99.9%</div>
+                    <div>System uptime guarantee</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-value">< 15 min</div>
+                    <div>Maximum response time</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-value">80%</div>
+                    <div>Issues resolved remotely</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-value">4.9/5</div>
+                    <div>Customer satisfaction rating</div>
+                </div>
+            </div>
+            <div class="modal-section">
+                <h3>This Is Different From Others</h3>
+                <p style="margin-bottom: 1rem;"><strong>Traditional Software Companies:</strong> Email support, 24-48 hour response, generic IT, you're one of thousands.</p>
+                <p><strong>CredenceSoft Approach:</strong> Direct phone line, 15-minute response, hospitality experts, your success is our priority.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-restaurant">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('modal-restaurant')">✕</button>
+            <h2>F&B + Hospitality Strategy</h2>
+            <div class="modal-section">
+                <h3>Discovery Questions</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li>"What's your current revenue breakdown: rooms vs F&B? Are they optimized together or separate?"</li>
+                    <li>"How do you upsell F&B to room guests?"</li>
+                    <li>"Any manual processes bridging POS and room billing?"</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>Value Proposition</h3>
+                <p>Position as "Unified Revenue Platform":</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>One guest profile across room + F&B + activities</li>
+                    <li>Automatic room folio charging from POS</li>
+                    <li>Personalized upselling based on stay patterns</li>
+                    <li>Unified reporting on total guest value</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h3>ROI Focus</h3>
+                <p>For a hotel with strong F&B: ₹45L+ annual impact through upsell optimization and operational integration.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // INITIALIZATION & UTILITIES
+        // ==========================================
+        
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Remove loading screen
+        window.addEventListener('load', () => {
+            gsap.to('#loadingScreen', {
+                opacity: 0,
+                duration: 0.8,
+                delay: 1.5,
+                pointerEvents: 'none'
+            });
+        });
+
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+        });
+
+        // Smooth scrolling
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                window.scrollTo({
+                    top: element.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // ==========================================
+        // MODAL MANAGEMENT
+        // ==========================================
+        
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal on background click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // ==========================================
+        // COST ANIMATION
+        // ==========================================
+        
+        function animateCounter(elementId, finalValue) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            
+            const numericValue = parseInt(finalValue.replace(/₹|,/g, ''));
+            gsap.to({ value: 0 }, {
+                value: numericValue,
+                duration: 2.5,
+                onUpdate: function() {
+                    element.textContent = '₹' + Math.floor(this.targets()[0].value).toLocaleString('en-IN');
+                },
+                scrollTrigger: {
+                    trigger: '#real-cost',
+                    start: 'top center',
+                    once: true
+                }
+            });
+        }
+
+        // Animate costs when section comes into view
+        ScrollTrigger.create({
+            trigger: '#real-cost',
+            onEnter: () => {
+                animateCounter('cost-ota', '₹342000');
+                animateCounter('cost-direct', '₹185000');
+                animateCounter('cost-labor', '₹68000');
+                animateCounter('cost-overbooking', '₹42000');
+            }
+        });
+
+        // ==========================================
+        // CHART INITIALIZATION
+        // ==========================================
+        
+        const chartCanvas = document.getElementById('costChart');
+        if (chartCanvas) {
+            new Chart(chartCanvas, {
+                type: 'bar',
+                data: {
+                    labels: ['OTA\nCommission', 'Lost Direct\nBookings', 'Manual\nLabor', 'Overbooking\nPenalties'],
+                    datasets: [{
+                        label: 'Monthly Cost (₹)',
+                        data: [342000, 185000, 68000, 42000],
+                        backgroundColor: [
+                            'rgba(212, 175, 55, 0.8)',
+                            'rgba(231, 76, 60, 0.8)',
+                            'rgba(241, 196, 15, 0.8)',
+                            'rgba(46, 204, 113, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(212, 175, 55, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(241, 196, 15, 1)',
+                            'rgba(46, 204, 113, 1)'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(245, 241, 237, 0.8)',
+                                font: { size: 12 }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'rgba(245, 241, 237, 0.6)',
+                                callback: function(value) {
+                                    return '₹' + (value / 1000).toFixed(0) + 'K';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(212, 175, 55, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'rgba(245, 241, 237, 0.8)'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ==========================================
+        // SIMULATION
+        // ==========================================
+        
+        function runSimulation() {
+            const steps = ['step-1', 'step-2', 'step-3', 'step-4', 'step-5'];
+            
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    document.querySelectorAll('.workflow-step').forEach(s => s.classList.remove('active'));
+                    document.getElementById(step).classList.add('active');
+                    
+                    // Update dashboard
+                    updateDashboardMetrics(index);
+                }, index * 800);
+            });
+
+            // Reset after simulation
+            setTimeout(() => {
+                document.querySelectorAll('.workflow-step').forEach(s => s.classList.remove('active'));
+                document.getElementById('step-1').classList.add('active');
+            }, steps.length * 800 + 1000);
+        }
+
+        function updateDashboardMetrics(step) {
+            const dashboards = {
+                0: ['dash-booking'],
+                1: ['dash-occupancy', 'dash-revenue'],
+                2: ['dash-direct', 'dash-payment'],
+                3: ['dash-checkin', 'dash-housekeeping'],
+                4: ['dash-checkin', 'dash-satisfaction']
+            };
+
+            document.querySelectorAll('.dashboard-item').forEach(item => item.classList.remove('active'));
+            
+            if (dashboards[step]) {
+                dashboards[step].forEach(id => {
+                    const elem = document.getElementById(id);
+                    if (elem) elem.classList.add('active');
+                });
+            }
+        }
+
+        // ==========================================
+        // BEFORE/AFTER TOGGLE
+        // ==========================================
+        
+        function toggleComparison(mode) {
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const cards = document.querySelectorAll('.comparison-card');
+            if (mode === 'after') {
+                cards.forEach((card, index) => {
+                    card.classList.remove('negative');
+                    card.classList.add('positive');
+                    
+                    // Update content
+                    setTimeout(() => {
+                        if (index === 0) {
+                            card.innerHTML = '<div class="comparison-icon"><i class="fas fa-lightning"></i></div><h3>2.3-min Check-in</h3><p>Instant digital process, seamless experience</p>';
+                        } else if (index === 1) {
+                            card.innerHTML = '<div class="comparison-icon"><i class="fas fa-check-double"></i></div><h3>Zero Overbookings</h3><p>Real-time sync across all channels</p>';
+                        } else if (index === 2) {
+                            card.innerHTML = '<div class="comparison-icon"><i class="fas fa-chart-pie"></i></div><h3>45% Direct Revenue</h3><p>Own customer relationships, zero commissions</p>';
+                        } else if (index === 3) {
+                            card.innerHTML = '<div class="comparison-icon"><i class="fas fa-dashboard"></i></div><h3>Real-Time Insights</h3><p>Instant dashboards, data-driven decisions</p>';
+                        }
+                    }, 150);
+                });
+            } else {
+                cards.forEach((card, index) => {
+                    card.classList.add('negative');
+                    card.classList.remove('positive');
+                });
+            }
+        }
+
+        // ==========================================
+        // GM MODE INTERACTIONS
+        // ==========================================
+        
+        function handleGMAction(action) {
+            const alertText = {
+                'resolve-alert': 'Late checkout approved for Room 204 and 312. Housekeeping notified. Guest notifications sent.',
+                'view-occupancy': 'Current occupancy: 52 of 60 rooms (87%). Forecast for next 3 days: 91%, 89%, 85%. Available for immediate check-in: 8 rooms.',
+                'revenue-tracking': 'Today revenue: ₹4.2L. Direct bookings: 42% (₹1.76L). OTA: 58% (₹2.44L). Commission saved this month vs OTA-only: ₹15.6L.',
+                'staff-coordination': 'Housekeeping queue: 6 rooms in progress, 3 waiting. Front desk: 2 check-ins in progress, 1 waiting. Avg wait time: 3.2 minutes.'
+            };
+
+            alert(alertText[action] || 'Action executed successfully.');
+        }
+
+        // ==========================================
+        // SCROLL ANIMATIONS
+        // ==========================================
+        
+        gsap.defaults({ ease: "power2.out" });
+
+        // Section fade-in
+        document.querySelectorAll('.section').forEach((section, index) => {
+            gsap.from(section, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%'
+                }
+            });
+        });
+
+        // Product cards animation
+        document.querySelectorAll('.product-card').forEach((card, index) => {
+            gsap.from(card, {
+                opacity: 0,
+                y: 40,
+                duration: 0.8,
+                delay: index * 0.1,
+                scrollTrigger: {
+                    trigger: '#ecosystem',
+                    start: 'top 60%'
+                }
+            });
+        });
+
+        // Cost cards animation
+        document.querySelectorAll('.cost-card').forEach((card, index) => {
+            gsap.from(card, {
+                opacity: 0,
+                y: 30,
+                duration: 0.7,
+                delay: index * 0.15,
+                scrollTrigger: {
+                    trigger: '#real-cost',
+                    start: 'top 70%'
+                }
+            });
+        });
+
+        // ==========================================
+        // KEYBOARD NAVIGATION
+        // ==========================================
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+        });
+
+        // ==========================================
+        // ACCESSIBILITY
+        // ==========================================
+        
+        document.querySelectorAll('.btn, .pain-point, .product-card, .client-card').forEach(element => {
+            element.setAttribute('role', 'button');
+            element.setAttribute('tabindex', '0');
+        });
+
+        console.log('✓ CredenceSoft BDM Pitch Website Loaded Successfully');
+    </script>
+</body>
+</html>
